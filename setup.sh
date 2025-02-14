@@ -33,7 +33,7 @@ install_packages() {
     local packages=($(grep -v '^#' packages | grep -v '^$'))
     local remove_packages=($(grep -v '^#' remove | grep -v '^$'))
     yay -S --needed --noconfirm "${packages[@]}"
-    sudo pacman -Rnsc --noconfirm "${remove_packages[@]}"
+    sudo pacman -Rnsc --noconfirm "${remove[@]}"
     print_message $GREEN "Package installation complete."
 }
 
@@ -110,15 +110,83 @@ viewMode=Detail" | sudo tee ~/.config/QtProject.conf > /dev/null
 
 setup_cloudflare_warp() {
     print_message $BLUE "Setting up Cloudflare WARP..."
-    bash -c "$(curl -Ss https://gist.githubusercontent.com/ayu2805/7ad8100b15699605fbf50291af8df16c/raw/warp-update)"
-    warp-cli generate-completions fish | sudo tee /etc/fish/completions/warp-cli.fish > /dev/null
+    if ! command -v warp-cli &>/dev/null; then
+        print_message $BLUE "Installing Cloudflare WARP..."
+        yay -S --needed --noconfirm cloudflare-warp-bin
+    else
+        print_message $YELLOW "Cloudflare WARP is already installed."
+    fi
+    if ! systemctl is-active --quiet warp-svc; then
+        print_message $BLUE "Starting Cloudflare WARP service..."
+        sudo systemctl enable --now warp-svc
+    else
+        print_message $YELLOW "Cloudflare WARP service is already running."
+    fi
+
+    if ! warp-cli account | grep -q "Registered"; then
+        print_message $BLUE "Registering device with Cloudflare WARP..."
+        warp-cli register
+    else
+        print_message $YELLOW "Device is already registered with Cloudflare WARP."
+    fi
+    read -r -p "Do you want to connect to Cloudflare WARP now? [y/N] " connect_response
+    if [[ "$connect_response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        if ! warp-cli status | grep -q "Connected"; then
+            print_message $BLUE "Connecting to Cloudflare WARP..."
+            warp-cli connect
+        else
+            print_message $YELLOW "Already connected to Cloudflare WARP."
+        fi
+    else
+        print_message $YELLOW "Skipping Cloudflare WARP connection."
+    fi
+    if command -v fish &>/dev/null; then
+        print_message $BLUE "Generating Fish shell completions for warp-cli..."
+        warp-cli generate-completions fish | sudo tee /etc/fish/completions/warp-cli.fish > /dev/null
+    fi
     print_message $GREEN "Cloudflare WARP configured."
 }
 
 setup_gaming() {
     print_message $BLUE "Setting up gaming packages..."
-    bash -c "$(curl -Ss https://gist.githubusercontent.com/ayu2805/37d0d1740cd7cc8e1a37b2a1c2ecf7a6/raw/archlinux-gaming-setup)"
+    curl -#LO https://launcher.mojang.com/download/Minecraft.deb
+    ar x Minecraft.deb
+    tar -xf data.tar.xz
+    sudo cp data/usr/bin/minecraft-launcher /usr/bin/
+    sudo cp data/usr/share/icons/hicolor/symbolic/apps/minecraft-launcher.svg /usr/share/icons/hicolor/symbolic/apps/
+    sudo cp data/usr/share/applications/minecraft-launcher.desktop /usr/share/applications/
+    rm -rf control.tar.xz data.tar.xz Minecraft.deb usr/ debian-binary
+    
+    flatpak install -y flathub com.valvesoftware.Steam 
     print_message $GREEN "Gaming packages installed."
+}
+
+install_blackarch_tools() {
+    print_message $BLUE "Do you want to install BlackArch tools? This will not install the full BlackArch repository, only the tools."
+    read -r -p "Install BlackArch tools? [y/N] " response
+    if [[ "$response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
+        print_message $BLUE "Installing BlackArch tools..."
+        local tools_url="https://github.com/Radi8ion/arch-setup/blob/main/blackarch"
+        local tools_file="/tmp/blackarch"
+        curl -sSL "$tools_url" -o "$tools_file"
+        if [[ ! -f "$tools_file" ]]; then
+            print_message $RED "Failed to download the tools list. Please check the URL and try again."
+            return 1
+        fi
+        local blackarch_tools=($(grep -v '^#' "$tools_file" | grep -v '^$'))
+        for tool in "${blackarch_tools[@]}"; do
+            if yay -Qi "$tool" &>/dev/null; then
+                print_message $YELLOW "$tool is already installed. Skipping..."
+            else
+                print_message $BLUE "Installing $tool..."
+                yay -S --needed --noconfirm "$tool"
+            fi
+        done
+        rm -f "$tools_file"
+        print_message $GREEN "BlackArch tools installation complete."
+    else
+        print_message $YELLOW "Skipping BlackArch tools installation."
+    fi
 }
 
 print_message $YELLOW "Welcome to the Minimal Arch Linux Installation Script"
@@ -181,6 +249,7 @@ configure_gtk4
 configure_qt_dialog
 setup_cloudflare_warp
 setup_gaming
+install_blackarch_tools
 
 echo "[Trigger]
 Operation = Install
