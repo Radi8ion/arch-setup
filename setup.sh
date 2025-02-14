@@ -292,6 +292,7 @@ apply_touchpad_config
 configure_firewall
 configure_samba
 configure_fingerprint_sensor
+touchpadConfiguration
 sudo mkdir -p /etc/pacman.d/hooks/
 touchpadConfiguration
 
