@@ -1,4 +1,3 @@
-# Base system utilities
 git
 base-devel
 neovim
@@ -13,16 +12,11 @@ unrar
 unzip
 wl-clipboard
 xclip
-
-# Others
-qbittorrent-enhanced 
 firefox
 firefox-ublock-origin
 libreoffice-fresh
 bluez
 bluez-obex 
-
-# GNOME Desktop
 gnome
 gdm
 file-roller
@@ -33,8 +27,6 @@ python-nautilus
 seahorse
 zenity
 accountsservice
-
-# File systems
 btrfs-progs
 dosfstools
 e2fsprogs
@@ -44,52 +36,36 @@ fatresize
 ntfs-3g
 squashfs-tools
 sshfs
-
-# Printing and drivers
 cups-pdf
 foomatic-db
 foomatic-db-engine
 foomatic-db-nonfree
 gutenprint
 system-config-printer
-
-# Networking and security
 networkmanager-openvpn
 nftables
 nss-mdns
 samba
 ufw
-
-# Graphics and themes
 gtk-engine-murrine
 mesa
 vulkan-mesa-layers
 whitesur-gtk-theme-git
 whitesur-icon-theme
-
-# Fonts
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 noto-fonts-extra
 ttf-liberation
-
-# Development tools
 android-tools
 git-lfs
 code
 code-marketplace
-
-# GNOME Extensions
 gnome-shell-extension-gsconnect
-
-# Hardware support
 fprintd
 power-profiles-daemon
 sof-firmware
 xf86-input-evdev
-
-# Data Science and ML
 python
 python-pip
 python-numpy
@@ -98,32 +74,7 @@ python-matplotlib
 python-pandas
 python-scikit-learn
 python-jupyterlab
-
-# Android Development
 android-studio
 jdk-openjdk
-
-# Multimedia
 mpv
 yt-dlp
-
-# Remove these packages
-baobab
-epiphany
-evince
-gnome-calendar
-gnome-characters
-gnome-clocks
-gnome-connections
-gnome-contacts
-gnome-maps
-gnome-music
-gnome-text-editor
-gnome-tour
-gnome-user-docs
-gnome-weather
-simple-scan
-snapshot
-sushi
-totem
-yelp
