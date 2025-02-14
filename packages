@@ -14,9 +14,16 @@ unzip
 wl-clipboard
 xclip
 
+# Others
+
+firefox
+firefox-ublock-origin
+libreoffice-fresh
+bluez
+bluez-obex 
+
 # GNOME Desktop
 gnome
-gnome-extra
 gdm
 file-roller
 gnome-browser-connector
@@ -95,7 +102,6 @@ python-jupyterlab
 # Android Development
 android-studio
 jdk-openjdk
-jre-openjdk
 
 # Multimedia
 mpv
@@ -121,8 +127,3 @@ snapshot
 sushi
 totem
 yelp
-firefox
-firefox-ublock-origin
-libreoffice-fresh
-bluez
-bluez-obex 
