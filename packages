@@ -1,0 +1,128 @@
+# Base system utilities
+git
+base-devel
+neovim
+fish
+aria2
+fuse2
+inetutils
+mtools
+neofetch
+p7zip
+unrar
+unzip
+wl-clipboard
+xclip
+
+# GNOME Desktop
+gnome
+gnome-extra
+gdm
+file-roller
+gnome-browser-connector
+gnome-tweaks
+gnome-firmware
+python-nautilus
+seahorse
+zenity
+accountsservice
+
+# File systems
+btrfs-progs
+dosfstools
+e2fsprogs
+exfatprogs
+f2fs-tools
+fatresize
+ntfs-3g
+squashfs-tools
+sshfs
+
+# Printing and drivers
+cups-pdf
+foomatic-db
+foomatic-db-engine
+foomatic-db-nonfree
+gutenprint
+system-config-printer
+
+# Networking and security
+networkmanager-openvpn
+nftables
+nss-mdns
+samba
+ufw
+
+# Graphics and themes
+gtk-engine-murrine
+mesa
+vulkan-mesa-layers
+whitesur-gtk-theme-git
+whitesur-icon-theme
+
+# Fonts
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+noto-fonts-extra
+ttf-liberation
+
+# Development tools
+android-tools
+git-lfs
+code
+code-marketplace
+
+# GNOME Extensions
+gnome-shell-extension-gsconnect
+
+# Hardware support
+fprintd
+power-profiles-daemon
+sof-firmware
+xf86-input-evdev
+
+# Data Science and ML
+python
+python-pip
+python-numpy
+python-scipy
+python-matplotlib
+python-pandas
+python-scikit-learn
+python-jupyterlab
+
+# Android Development
+android-studio
+jdk-openjdk
+jre-openjdk
+
+# Multimedia
+mpv
+yt-dlp
+
+# Remove these packages
+baobab
+epiphany
+evince
+gnome-calendar
+gnome-characters
+gnome-clocks
+gnome-connections
+gnome-contacts
+gnome-maps
+gnome-music
+gnome-text-editor
+gnome-tour
+gnome-user-docs
+gnome-weather
+simple-scan
+snapshot
+sushi
+totem
+yelp
+firefox
+firefox-ublock-origin
+libreoffice-fresh
+bluez
+bluez-obex 
